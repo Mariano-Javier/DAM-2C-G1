@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Capa inferior: el borde con gradiente -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="3dp" android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+
+    <!-- Capa superior: el fondo blanco con padding para dejar visible el borde -->
+    <item android:top="3dp" android:bottom="3dp" android:left="3dp" android:right="3dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="27dp" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+
+</layer-list>
