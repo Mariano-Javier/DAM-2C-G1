@@ -34,10 +34,12 @@ class LoginActivity : AppCompatActivity() {
         buttonIngresar.setOnClickListener {
             val usuario = usuarioEditText.text.toString()
             val contrasenia = contraseniaEditText.text.toString()
+            val empleado = EmpleadoDao(this).autenticar(usuario, contrasenia)
 
             // Uso el método de instancia
-            if (empleadoDao.validarEmpleado(usuario, contrasenia)) {
+            if (empleado != null) {
                 val intent = Intent(this, MainMenuActivity::class.java)
+                intent.putExtra("empleado", empleado)
                 startActivity(intent)
                 finish()
             } else {
@@ -50,5 +52,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, RegistrarEmpleadoActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 }

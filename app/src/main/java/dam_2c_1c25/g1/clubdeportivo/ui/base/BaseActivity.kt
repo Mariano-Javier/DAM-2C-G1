@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import dam_2c_1c25.g1.clubdeportivo.R
+import dam_2c_1c25.g1.clubdeportivo.data.model.Empleado
 import dam_2c_1c25.g1.clubdeportivo.ui.ayuda.AyudaActivity
 import dam_2c_1c25.g1.clubdeportivo.ui.carnet.CarnetActivity
 import dam_2c_1c25.g1.clubdeportivo.ui.cuotasocio.CuotaSocioActivity
@@ -22,6 +24,7 @@ import dam_2c_1c25.g1.clubdeportivo.ui.pagoactividades.PagoActividadesActivity
 import dam_2c_1c25.g1.clubdeportivo.ui.registrarcliente.RegistrarClienteActivity
 import dam_2c_1c25.g1.clubdeportivo.ui.veractividades.VerActividadesActivity
 import dam_2c_1c25.g1.clubdeportivo.ui.login.LoginActivity
+
 
 open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -53,6 +56,22 @@ open class BaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         val navView = findViewById<NavigationView>(R.id.nav_view)
         navView.setNavigationItemSelectedListener(this)
+    }
+
+    //Setear el nombre y email de empleado en nav_header
+    protected fun updateNavHeader() {
+        val navView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navView.getHeaderView(0)
+        val titleTextView = headerView.findViewById<TextView>(R.id.nav_header_title)
+        val subtitleTextView = headerView.findViewById<TextView>(R.id.nav_header_subtitle)
+
+        Empleado.empleadoLogueado?.let {
+            titleTextView.text = "${it.nombre} ${it.apellido}"
+            subtitleTextView.text = it.email
+        } ?: run {
+            titleTextView.text = "Club Deportivo Argentino"
+            subtitleTextView.text = "usuario@ejemplo.com"
+        }
     }
 
     /** Funciones del botón de volver atras en menú */

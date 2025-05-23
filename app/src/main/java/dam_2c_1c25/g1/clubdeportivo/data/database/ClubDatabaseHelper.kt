@@ -50,7 +50,7 @@ class ClubDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db.execSQL(
             """
             INSERT INTO empleado (nombre, apellido, dni, email, telefono, fecha_nac, rol, usuario, contrasenia)
-            VALUES ('Club', 'Deportivo', '12345678', 'grupo12@clubdeportivo.com', '12222333', '2024-10-02', 'administrador', 'admin', '1234')
+            VALUES ('Club', 'Deportivo', '12345678', 'grupo1@clubdeportivo.com', '12222333', '2025-05-02', 'administrador', 'admin', '1234')
             """
         )
     }
