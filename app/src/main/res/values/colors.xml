@@ -8,5 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="hint_color">#FFFFFF</color>
+    <color name="gray_divider">#928F8F</color>
+    <color name="error_color">#EF4747</color>
+    <color name="selected_color">#A609E909</color>
+    <color name="unselected_color">@android:color/white</color>
+    <color name="success_color">#388E3C</color>
+    <color name="warning_color">#F57C00</color>
 
 </resources>

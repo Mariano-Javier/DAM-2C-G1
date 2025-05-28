@@ -23,4 +23,51 @@ class ClienteDao(context: Context) {
         db.close()
         return id
     }
+    fun obtenerClientePorDni(dni: String): Cliente? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM cliente WHERE dni = ?", arrayOf(dni))
+
+        return if (cursor.moveToFirst()) {
+            Cliente(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                apellido = cursor.getString(cursor.getColumnIndexOrThrow("apellido")),
+                dni = cursor.getString(cursor.getColumnIndexOrThrow("dni")),
+                email = cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                telefono = cursor.getString(cursor.getColumnIndexOrThrow("telefono")),
+                fechaNac = cursor.getString(cursor.getColumnIndexOrThrow("fecha_nac")),
+                esSocio = cursor.getInt(cursor.getColumnIndexOrThrow("es_socio")) == 1,
+                esApto = cursor.getInt(cursor.getColumnIndexOrThrow("es_apto")) == 1
+            )
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
+
+    fun obtenerClientePorId(id: Int): Cliente? {
+        val db = dbHelper.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM cliente WHERE id = ?", arrayOf(id.toString()))
+
+        return if (cursor.moveToFirst()) {
+            Cliente(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                apellido = cursor.getString(cursor.getColumnIndexOrThrow("apellido")),
+                dni = cursor.getString(cursor.getColumnIndexOrThrow("dni")),
+                email = cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                telefono = cursor.getString(cursor.getColumnIndexOrThrow("telefono")),
+                fechaNac = cursor.getString(cursor.getColumnIndexOrThrow("fecha_nac")),
+                esSocio = cursor.getInt(cursor.getColumnIndexOrThrow("es_socio")) == 1,
+                esApto = cursor.getInt(cursor.getColumnIndexOrThrow("es_apto")) == 1
+            )
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
 }
