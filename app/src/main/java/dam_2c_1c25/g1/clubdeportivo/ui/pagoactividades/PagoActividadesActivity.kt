@@ -126,22 +126,7 @@ class PagoActividadesActivity : BaseActivity() {
             android.R.layout.simple_spinner_item,
             opcionesBusqueda
         ) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getView(position, convertView, parent) as TextView
-                // Personalización del texto mostrado en el spinner
-                view.setTextColor(ContextCompat.getColor(context, R.color.black)) // Color del texto principal
-                view.background = ContextCompat.getDrawable(context, R.drawable.border_background) // Fondo
 
-                return view
-            }
-
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = super.getDropDownView(position, convertView, parent) as TextView
-                // Personalización de las opciones del dropdown
-                view.setTextColor(ContextCompat.getColor(context, R.color.black)) // Color del texto en dropdown
-                view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white)) // Fondo del dropdown
-                return view
-            }
         }
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -151,7 +136,7 @@ class PagoActividadesActivity : BaseActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
                 if (view is TextView) {
-                    view.setTextColor(ContextCompat.getColor(this@PagoActividadesActivity, R.color.black))
+                    view.setTextColor(ContextCompat.getColor(this@PagoActividadesActivity, R.color.white))
                 }
                 tilBusqueda.hint = when (position) {
                     0 -> "Ingrese DNI del cliente"
