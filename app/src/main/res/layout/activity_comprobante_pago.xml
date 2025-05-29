@@ -12,8 +12,7 @@
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/imgbackground"
-        />
+        app:srcCompat="@drawable/imgbackground"/>
 
     <ImageView
         android:id="@+id/imageTop_border"
@@ -22,7 +21,7 @@
         android:scaleType="fitXY"
         android:layout_gravity="top"
         android:alpha="0.65"
-        app:srcCompat="@drawable/top_border" />
+        app:srcCompat="@drawable/top_border"/>
 
     <ImageView
         android:id="@+id/imageBottom_border"
@@ -31,15 +30,14 @@
         android:alpha="0.65"
         android:scaleType="fitXY"
         android:layout_gravity="bottom"
-        app:srcCompat="@drawable/bottom_border" />
+        app:srcCompat="@drawable/bottom_border"/>
 
     <ScrollView
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:padding="16dp"
-        tools:context=".ui.comprobantepago.ComprobantePagoActivity">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,15 +54,13 @@
                 android:gravity="center"
                 android:layout_marginBottom="16dp"/>
 
-
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitXY"
                 android:layout_gravity="center"
                 android:layout_marginBottom="16dp"
-                app:srcCompat="@drawable/checkpago" />
-
+                app:srcCompat="@drawable/checkpago"/>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardComprobante"
@@ -80,6 +76,7 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- Encabezado del comprobante -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -91,8 +88,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_logo_club80" />
-
+                            app:srcCompat="@drawable/ic_logo_club80"/>
 
                         <TextView
                             android:id="@+id/txtTitulo"
@@ -104,7 +100,7 @@
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ic_logo80"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -115,114 +111,127 @@
                             android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ic_logo80"
-                            app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
-
-
+                            app:layout_constraintTop_toBottomOf="@+id/txtTitulo"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="@color/gray_divider" />
+                        android:background="@color/gray_divider"/>
 
-                    <!-- Línea 1: Cliente (izquierda) + Fecha (derecha) -->
+                    <!-- Información del cliente -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <!-- Cliente (alineado a la izquierda) -->
                         <TextView
                             android:id="@+id/tvCliente"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Cliente: "
-                            android:textStyle="bold" />
+                            android:textStyle="bold"/>
 
-                        <!-- Fecha (alineado a la derecha) -->
                         <TextView
                             android:id="@+id/tvFecha"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Fecha: " />
+                            android:text="Fecha: "/>
                     </LinearLayout>
 
-                    <!-- Línea 2: DNI -->
                     <TextView
                         android:id="@+id/tvDni"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="DNI: " />
+                        android:text="DNI: "/>
 
-                    <!-- Línea 3: Método de pago -->
                     <TextView
                         android:id="@+id/tvMetodoPago"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Método de Pago: " />
+                        android:text="Método de Pago: "/>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="@color/gray_divider" />
+                        android:background="@color/gray_divider"/>
 
+                    <!-- Sección dinámica para actividades o cuota -->
                     <TextView
+                        android:id="@+id/tvTipoPagoLabel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Actividades:"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
                     <TextView
-                        android:id="@+id/tvActividades"
+                        android:id="@+id/tvDetallesPago"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="8dp"/>
+
+                    <!-- Sección adicional para cuotas (inicialmente oculta) -->
+                    <LinearLayout
+                        android:id="@+id/layoutCuotaInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvTipoCuota"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tipo de cuota: "/>
+
+                        <TextView
+                            android:id="@+id/tvDuracion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Duración: "/>
+
+                        <TextView
+                            android:id="@+id/tvPeriodoInicio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Fecha inicio: "/>
+
+                        <TextView
+                            android:id="@+id/tvPeriodoFin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Fecha vencimiento: "/>
+                    </LinearLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginVertical="16dp"
-                        android:background="@color/gray_divider" />
+                        android:background="@color/gray_divider"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Subtotal:"
-                        android:textStyle="bold" />
-
+                    <!-- Resumen de pago -->
                     <TextView
                         android:id="@+id/tvSubtotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Descuento:"
-                        android:textStyle="bold" />
+                        android:textAlignment="textEnd"/>
 
                     <TextView
                         android:id="@+id/tvDescuento"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textAlignment="textEnd" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Total:"
-                        android:textStyle="bold" />
+                        android:textAlignment="textEnd"/>
 
                     <TextView
                         android:id="@+id/tvTotal"
@@ -230,9 +239,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:textAlignment="textEnd"
-                        android:textSize="18sp" />
-
-
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -250,7 +258,5 @@
                 android:text="Finalizar"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
         </LinearLayout>
-
     </ScrollView>
-
 </FrameLayout>

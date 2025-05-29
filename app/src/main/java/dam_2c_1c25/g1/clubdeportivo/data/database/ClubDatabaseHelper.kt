@@ -139,8 +139,9 @@ class ClubDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
 
         // Insertar datos en cuota_socio
         db.execSQL("""
-    INSERT INTO cuota_socio (descripcion, monto)
-    VALUES ('Mensual', 40000.00)
+    INSERT INTO cuota_socio (descripcion, monto)  VALUES 
+          ('Mensual', 40000.00),
+          ('Anual', 350000.00)
 """)
 
         // Insertar datos en descuentos

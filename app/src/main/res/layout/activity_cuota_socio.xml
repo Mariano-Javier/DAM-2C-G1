@@ -7,4 +7,444 @@
     android:layout_height="match_parent"
     tools:context=".ui.cuotasocio.CuotaSocioActivity">
 
+    <ImageView
+        android:id="@+id/imageBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/imgbackground" />
+
+    <ImageView
+        android:id="@+id/imageTop_border"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:alpha="0.65"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/top_border" />
+
+    <ImageView
+        android:id="@+id/imageBottom_border"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:alpha="0.65"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom_border" />
+
+    <!-- Contenedor principal del contenido -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- CardView para búsqueda de cliente -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Buscar Socio"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="8dp">
+
+                        <Spinner
+                            android:id="@+id/spinnerTipoBusqueda"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilBusqueda"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="2"
+                            android:layout_marginTop="8dp"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etBusqueda"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Ingrese DNI o ID"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnBuscarCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Buscar"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+                    <TextView
+                        android:id="@+id/tvErrorCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/error_color"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutInfoCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        android:layout_marginTop="16dp"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_cliente_info">
+
+                        <TextView
+                            android:id="@+id/tvNombreCliente"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:id="@+id/tvDniCliente"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tvTipoCliente"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textStyle="italic"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CardView para selección de cuota (inicialmente oculto) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCuota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Periodo a Pagar"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <!-- Tipo de cuota -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tipo de cuota:"
+                        android:layout_marginTop="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerTipoCuota"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@color/gray_divider" />
+
+                    <!-- Fecha inicio y duración -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fecha inicio:"/>
+
+                            <TextView
+                                android:id="@+id/tvFechaInicio"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Seleccionar fecha"
+                                android:layout_marginTop="18dp"
+                                android:gravity="start"
+                                android:textColor="@color/white"/>
+
+                            <Button
+                                android:id="@+id/btnSeleccionarFechaInicio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="19dp"
+                                android:text="Seleccionar"
+                                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="8dp">
+
+                            <TextView
+                                android:id="@+id/tvDuracionLabel"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Meses de suscripción:"/>
+
+                            <Spinner
+                                android:id="@+id/spinnerDuracion"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:layout_marginTop="4dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@color/gray_divider" />
+
+                    <!-- Fecha de vencimiento calculada -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de vencimiento:"
+                        android:layout_marginTop="16dp"/>
+
+                    <TextView
+                        android:id="@+id/tvFechaVencimiento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- CardView para resumen de pago (inicialmente oculto) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardResumen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Resumen de Pago"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <!-- Sección de fecha de pago -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha de pago: "
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                        <TextView
+                            android:id="@+id/tvFechaPago"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Seleccionar fecha"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@color/white"/>
+
+                        <Button
+                            android:id="@+id/btnSeleccionarFechaPago"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cambiar"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@color/gray_divider" />
+
+                    <!-- Detalles de la cuota -->
+                    <TextView
+                        android:id="@+id/tvDetallesCuota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@color/gray_divider" />
+
+                    <!-- Sección de método de pago -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Método de pago:"
+                        android:layout_marginTop="8dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+
+                    <RadioGroup
+                        android:id="@+id/rgMetodoPago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="4dp">
+
+                        <RadioButton
+                            android:id="@+id/rbEfectivo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Efectivo (20% descuento)"/>
+
+                        <RadioButton
+                            android:id="@+id/rbTransferencia"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transferencia (5% descuento)"/>
+
+                        <RadioButton
+                            android:id="@+id/rbTarjeta"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tarjeta (10% descuento)"/>
+                    </RadioGroup>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="8dp"
+                        android:background="@color/gray_divider" />
+
+                    <!-- Resto del resumen (subtotal, descuento, total) -->
+                    <TextView
+                        android:id="@+id/tvSubtotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvDescuento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="16dp"
+                        android:weightSum="2"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/btnContinuar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:text="Pagar"
+                            style="@style/Widget.MaterialComponents.Button"/>
+
+                        <Button
+                            android:id="@+id/btnCancelar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Cancelar"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
