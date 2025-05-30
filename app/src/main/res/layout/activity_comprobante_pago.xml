@@ -270,7 +270,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Finalizar"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/BotonFinalizar"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
