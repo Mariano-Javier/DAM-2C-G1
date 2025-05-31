@@ -424,8 +424,23 @@ class CuotaSocioActivity : BaseActivity() {
             ""
         }
 
-        // Registrar el pago en la base de datos
+        // Verificar si ya existe un pago activo para este periodo
         val pagoCuotaDao = PagoCuotaDao(this)
+
+        if (pagoCuotaDao.tienePagoActivo(clienteSeleccionado!!.id, fechaInicio, fechaVencimiento)) {
+            val fechaFinPagoActivo = pagoCuotaDao.obtenerFechaFinPagoActivo(clienteSeleccionado!!.id)
+            val mensaje = if (fechaFinPagoActivo != null) {
+                val fechaFormateada = dateFormatter.format(dbDateFormatter.parse(fechaFinPagoActivo))
+                "El socio ya tiene un pago activo hasta el $fechaFormateada. Debe elegir una fecha posterior."
+            } else {
+                "El socio ya tiene un pago activo para este periodo."
+            }
+
+            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // Registrar el pago en la base de datos
         val resultado = pagoCuotaDao.registrarPagoCuota(
             idCliente = clienteSeleccionado!!.id,
             monto = total,

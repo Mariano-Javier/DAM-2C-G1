@@ -30,6 +30,65 @@ class PagoCuotaDao(context: Context) : PagoDao(context) {
         return insertPago(values)
     }
 
+    fun tienePagoActivo(idCliente: Int, fechaInicio: String, fechaFin: String): Boolean {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT COUNT(*) 
+        FROM pago 
+        WHERE id_cliente = ? 
+        AND socio_al_pagar = 1
+        AND (
+            (date(?) BETWEEN date(periodo_inicio) AND date(periodo_fin)) OR
+            (date(?) BETWEEN date(periodo_inicio) AND date(periodo_fin)) OR
+            (date(periodo_inicio) BETWEEN date(?) AND date(?)) OR
+            (date(periodo_fin) BETWEEN date(?) AND date(?))
+        )
+    """.trimIndent()
+
+        val cursor = db.rawQuery(query, arrayOf(
+            idCliente.toString(),
+            fechaInicio, fechaFin,
+            fechaInicio, fechaFin,
+            fechaInicio, fechaFin
+        ))
+
+        val count = if (cursor.moveToFirst()) {
+            cursor.getInt(0)
+        } else {
+            0
+        }
+
+        cursor.close()
+        db.close()
+
+        return count > 0
+    }
+
+    fun obtenerFechaFinPagoActivo(idCliente: Int): String? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT MAX(date(periodo_fin)) 
+        FROM pago 
+        WHERE id_cliente = ? 
+        AND socio_al_pagar = 1
+        AND date(periodo_fin) >= date('now')
+    """.trimIndent()
+
+        val cursor = db.rawQuery(query, arrayOf(idCliente.toString()))
+
+        var fechaFin: String? = null
+        try {
+            if (cursor.moveToFirst() && !cursor.isNull(0)) {
+                fechaFin = cursor.getString(0)
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return fechaFin
+    }
+
     // Métodos específicos para pagos de cuota
     fun obtenerPagosCuotaPorCliente(idCliente: Int): List<Pago> {
         return obtenerPagosPorCliente(idCliente).filter { it.socioAlPagar }

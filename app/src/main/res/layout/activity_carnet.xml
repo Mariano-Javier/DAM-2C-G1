@@ -142,12 +142,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
+                            android:textColor="@color/black"
                             android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/tvDniCliente"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textColor="@color/black"
                             android:layout_marginTop="4dp" />
 
                         <TextView
