@@ -20,6 +20,7 @@ import dam_2c_1c25.g1.clubdeportivo.ui.comprobantepago.ComprobantePagoActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import android.content.Intent
+import android.os.Build
 import android.widget.Toast
 
 class CuotaSocioActivity : BaseActivity() {
@@ -89,6 +90,27 @@ class CuotaSocioActivity : BaseActivity() {
         setupDatePickers()
         setupMetodosPago()
         setupButtons()
+
+        // Verificar si viene de registro y cargar cliente automáticamente
+        val cliente = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("cliente", Cliente::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Cliente>("cliente")
+        }
+
+        if (cliente != null) {
+            mostrarInfoCliente(cliente)
+        } else {
+            // Opcional: para verificar si se pasó el DNI como extra
+            val dni = intent.getStringExtra("dni")
+            if (!dni.isNullOrEmpty()) {
+                val clienteBuscado = clienteDao.obtenerClientePorDni(dni)
+                if (clienteBuscado != null) {
+                    mostrarInfoCliente(clienteBuscado)
+                }
+            }
+        }
     }
 
     private fun initViews() {

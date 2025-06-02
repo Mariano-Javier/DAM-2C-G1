@@ -1,6 +1,7 @@
 package dam_2c_1c25.g1.clubdeportivo.ui.registrarcliente
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import com.google.android.material.textfield.TextInputEditText
@@ -8,6 +9,8 @@ import dam_2c_1c25.g1.clubdeportivo.R
 import dam_2c_1c25.g1.clubdeportivo.data.database.ClienteDao
 import dam_2c_1c25.g1.clubdeportivo.data.model.Cliente
 import dam_2c_1c25.g1.clubdeportivo.ui.base.BaseActivity
+import dam_2c_1c25.g1.clubdeportivo.ui.cuotasocio.CuotaSocioActivity
+import dam_2c_1c25.g1.clubdeportivo.ui.pagoactividades.PagoActividadesActivity
 import java.util.Calendar
 import java.util.Locale
 
@@ -79,8 +82,22 @@ class RegistrarClienteActivity : BaseActivity() {
             val resultado = dao.insertarCliente(cliente)
 
             if (resultado != -1L) {
-                Toast.makeText(this, "Cliente registrado con éxito", Toast.LENGTH_SHORT).show()
-                finish() // opcional: cerrar actividad al registrar con éxito
+                val clienteRegistrado = dao.obtenerClientePorDni(dni) // Obtener el cliente recién registrado
+
+                if (clienteRegistrado != null) {
+                    if (esSocio) {  // Redirigir a CuotaSocioActivity con los datos del cliente
+                        val intent = Intent(this, CuotaSocioActivity::class.java).apply {
+                            putExtra("cliente", clienteRegistrado) // se puede cambiar a  ID: putExtra("idCliente", clienteRegistrado.id)
+                        }
+                        startActivity(intent)
+                    } else { // Redirigir a PagoActividadesActivity con los datos del cliente
+                        val intent = Intent(this, PagoActividadesActivity::class.java).apply {
+                            putExtra("cliente", clienteRegistrado)
+                        }
+                        startActivity(intent)
+                    }
+                }
+                finish()
             } else {
                 Toast.makeText(this, "Error al registrar cliente", Toast.LENGTH_SHORT).show()
             }

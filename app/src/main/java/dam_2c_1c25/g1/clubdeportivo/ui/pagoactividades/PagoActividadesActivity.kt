@@ -26,6 +26,7 @@ import java.util.Locale
 import java.text.SimpleDateFormat
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -89,6 +90,28 @@ class PagoActividadesActivity : BaseActivity() {
         setupDatePicker()
         setupMetodosPago()
         setupButtons()
+
+        // Verificar si viene de registro y cargar cliente automáticamente
+        val cliente = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("cliente", Cliente::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra<Cliente>("cliente")
+        }
+
+        if (cliente != null) {
+            mostrarInfoCliente(cliente)
+            cargarActividades()
+        } else {
+            val dni = intent.getStringExtra("dni")
+            if (!dni.isNullOrEmpty()) {
+                val clienteBuscado = clienteDao.obtenerClientePorDni(dni)
+                if (clienteBuscado != null) {
+                    mostrarInfoCliente(clienteBuscado)
+                    cargarActividades()
+                }
+            }
+        }
     }
 
     private fun initViews() {
