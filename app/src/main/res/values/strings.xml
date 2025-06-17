@@ -3,4 +3,20 @@
     <string name="registrate_subrayado"> <u>Registrarse</u></string>
     <string name="navigation_drawer_open">Abrir menú de navegación</string>
     <string name="navigation_drawer_close">Cerrar menú de navegación</string>
+    <string name="txt_integrantes">
+    Integrantes:\n
+        \n
+     - Choqui Perez, Mariano\n
+     - Costa, Gabriel\n
+     - Mendiola, Eduardo E.\n
+     - Rodrigues Cabrita, Carina\n\n
+
+</string>
+    <string name="txt_sobre_materia">
+        Sobre esta aplicación:\n\n
+    En este curso nos sumergimos en el desarrollo de aplicaciones móviles, aprendiendo a crear interfaces intuitivas y accesibles.\n
+    A lo largo de la cursada exploramos los distintos tipos de aplicaciones, sus procesos de diseño, implementación e integración.\n
+    Como proyecto final, desarrollamos una aplicación para la gestión de un Club Deportivo, aplicando los conocimientos adquiridos en programación, diseño de interfaz y buenas prácticas de programación.
+        </string>
+
 </resources>

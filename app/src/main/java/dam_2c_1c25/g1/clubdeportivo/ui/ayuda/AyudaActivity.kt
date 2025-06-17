@@ -9,6 +9,6 @@ class AyudaActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentLayout(R.layout.activity_ayuda)
         // Cambia el título del toolbar
-        supportActionBar?.title = "Ayuda"
+        supportActionBar?.title = "Acerca de:"
     }
 }
